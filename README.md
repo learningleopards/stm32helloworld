@@ -8,7 +8,8 @@ UART, is now fairly common on modern microcontrollers. STM32 microcontrollers in
 the UART source files into the project. On the Nucleo-F446RE, the UART lines used to communicate with the host computer are connected to the programming chip next to the USB connector. To view data sent from the UART, a serial terminal program PuTTY. In order to use the UART or USART, the GPIO PA2 and PA3 is involved since port pins must be configured for the alternate function. The code prints Hello World! on the terminal. It waits for 1 second, then repeats forever. The output on the PuTTY terminal as below.
 ![image](https://user-images.githubusercontent.com/92903308/211154410-f7a135f4-aed7-4a74-815b-35996fa53933.png)
 
-Next, the value of the 4-bit DIP switch from Stage 2 displayed 
+Next, the value of the 4-bit DIP switch from Stage 2 is displayed after the "Hello World". For example, when the input of the DIP switch is 0010, the output is as below.
+![image](https://user-images.githubusercontent.com/92903308/211155919-e74025f4-6ee2-495c-ad02-ec798200ce3b.png)
 
 - 💞️ **Youtube:** 
 - 📫 **References:** Lecture Note, Chapter 10: Serial Interfacing https://wiki.st.com/stm32mcu/wiki/STM32StepByStep:Step3_Introduction_to_the_UART https://www.youtube.com/watch?v=Kdn2-XSqVGY
