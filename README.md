@@ -15,5 +15,5 @@ Next, the value of the 4-bit DIP switch from Stage 2 is displayed after the "Hel
 
 ![image](https://user-images.githubusercontent.com/92903308/211155919-e74025f4-6ee2-495c-ad02-ec798200ce3b.png)
 
-- 💞️ **Youtube:** 
+- 💞️ **Youtube:** https://youtu.be/_QZceBOGCYU
 - 📫 **References:** Lecture Note, Chapter 10: Serial Interfacing https://wiki.st.com/stm32mcu/wiki/STM32StepByStep:Step3_Introduction_to_the_UART https://www.youtube.com/watch?v=Kdn2-XSqVGY
