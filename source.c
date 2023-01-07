@@ -6,7 +6,7 @@
   **************************
   * @attention
   *
-  * Copyright (c) 2023 STMicroelectronics.
+  * Copyright (c) 2022 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -65,6 +65,10 @@ static void MX_USART2_UART_Init(void);
   * @retval int
   */
 uint8_t data [] = " Hello World !\n\r";
+uint8_t switch1[] = "0000\n\r";
+uint8_t switch2[] = "0010\n\r";
+uint8_t switch3[] = "0100\n\r";
+uint8_t switch4[] = "1111\n\r";
 int main(void)
 {
   /* USER CODE BEGIN 1 */
@@ -97,23 +101,67 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  //GPIO_PinState state;
+  GPIO_PinState state1;
+  GPIO_PinState state2;
+  GPIO_PinState state3;
+  GPIO_PinState state4;
   while (1)
   {
     /* USER CODE END WHILE */
+	  	  	  //state = HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_0);
+	  	  	  state1 = HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_1);
+	  	  	  state2 = HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_2);
+	  	  	  state3 = HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_3);
+	  	  	  state4 = HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_4);
+
+
+
+	  	  	  if(!state1 && !state2 && !state3 && !state4){
+	  	  		HAL_UART_Transmit (&huart2 , data , sizeof ( data ) , 50) ; // transmit the data
+	  	  		HAL_Delay (1000) ; // wait for 1 sec
+	  	  		HAL_UART_Transmit (&huart2 , switch1 , sizeof ( switch1 ) , 50) ;
+	  	  		HAL_Delay (1000) ; // wait for 1 sec
+
+	  	  	  	  }
+
+
+	  	  	  	if(!state1 && !state2 && state3 && !state4)
+	  	  	  {
+	  	  	  	HAL_UART_Transmit (&huart2 , data , sizeof ( data ) , 50) ; // transmit the data
+	  	  	  	HAL_Delay (1000) ; // wait for 1 sec
+	  	  	  	HAL_UART_Transmit (&huart2 , switch2 , sizeof ( switch2 ) , 50) ;
+	  	  	  	HAL_Delay (1000) ; // wait for 1 sec
+
+	  	  	  	}
+
+
+
+
+	  	  	  if(!state1 && state2 && !state3 && !state4)
+	  	  	{
+	  	  		  	  HAL_UART_Transmit (&huart2 , data , sizeof ( data ) , 50) ; // transmit the data
+	  	  			  HAL_Delay (1000) ; // wait for 1 sec
+	  	  			  HAL_UART_Transmit (&huart2 , switch3 , sizeof ( switch3 ) , 50) ;
+	  	  			  HAL_Delay (1000) ; // wait for 1 sec
+
+
+	  	  	}
+
+
+	  	  	 if(state1 && state2 && state3 && state4)
+	  	  	{
+
+	  	  		HAL_UART_Transmit (&huart2 , data , sizeof ( data ) , 50) ; // transmit the data
+	  	  	    HAL_Delay (1000) ; // wait for 1 sec
+	  	  	    HAL_UART_Transmit (&huart2 , switch4 , sizeof ( switch4 ) , 50) ;
+	  	  		HAL_Delay (1000) ; // wait for 1 sec
+
+	  	  	}
+
 
     /* USER CODE BEGIN 3 */
-//	  HAL_Init () ;
-	  /* Configure the system clock */
-//	  SystemClock_Config () ;
-	  /* Initialize all configured peripherals */
-//	  MX_GPIO_Init () ;
-//	  MX_USART2_UART_Init () ;
-
-
-	  HAL_UART_Transmit (&huart2 , data , sizeof ( data ) , 50) ; // transmit the data
-	  HAL_Delay (1000) ; // wait for 1 sec
-	  }
-
+  }
   /* USER CODE END 3 */
 }
 
@@ -229,20 +277,25 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, LED0_Pin|LED1_Pin|LED2_Pin|LED3_Pin
+                          |LED4_Pin|LED5_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pin : B1_Pin */
-  GPIO_InitStruct.Pin = B1_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
+  /*Configure GPIO pins : PUSHBUTTON_Pin DIP1_Pin DIP2_Pin DIP3_Pin
+                           DIP4_Pin */
+  GPIO_InitStruct.Pin = PUSHBUTTON_Pin|DIP1_Pin|DIP2_Pin|DIP3_Pin
+                          |DIP4_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(B1_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : LD2_Pin */
-  GPIO_InitStruct.Pin = LD2_Pin;
+  /*Configure GPIO pins : LED0_Pin LED1_Pin LED2_Pin LED3_Pin
+                           LED4_Pin LED5_Pin */
+  GPIO_InitStruct.Pin = LED0_Pin|LED1_Pin|LED2_Pin|LED3_Pin
+                          |LED4_Pin|LED5_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(LD2_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
 }
 
